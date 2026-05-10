@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Immersive Media</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #111110;
+    --white: #faf9f7;
+    --muted: #888782;
+    --border: rgba(17,17,16,0.1);
+    --accent: #2a2a28;
+    --serif: 'DM Serif Display', serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--white);
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(250,249,247,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    color: var(--black);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--black); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    background: var(--muted);
+  }
+
+  h1.hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    max-width: 900px;
+  }
+
+  h1.hero-name em {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .hero-desc {
+    max-width: 340px;
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .hero-scroll {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .hero-scroll:hover { color: var(--black); }
+
+  .scroll-arrow {
+    display: inline-block;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+
+  /* SECTION BASE */
+  section {
+    padding: 7rem 4rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after {
+    content: '';
+    display: block;
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h2.section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ABOUT */
+  #about .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 1.25rem;
+  }
+
+  .about-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .meta-item:last-child { border-bottom: none; }
+
+  .meta-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .meta-value {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--black);
+  }
+
+  /* PROJECTS */
+  #projects .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: #ece9e4;
+    aspect-ratio: 4/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.75rem;
+    transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+
+  .project-card:first-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 16/7;
+  }
+
+  .project-card:hover { transform: scale(0.99); }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(17,17,16,0.7) 0%, transparent 60%);
+    z-index: 1;
+  }
+
+  .project-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0,0,0,0.03) 10px,
+      rgba(0,0,0,0.03) 11px
+    );
+  }
+
+  .project-info {
+    position: relative;
+    z-index: 2;
+    color: var(--white);
+  }
+
+  .project-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 0.4rem;
+  }
+
+  .project-name {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .project-card:first-child .project-name { font-size: 2.2rem; }
+
+  /* SKILLS */
+  #skills .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .skill-group {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-group:nth-child(3n) { border-right: none; }
+  .skill-group:nth-last-child(-n+3) { border-bottom: none; }
+
+  .skill-group-name {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .skill-list li {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .skill-list li::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--muted);
+    flex-shrink: 0;
+  }
+
+  /* CONTACT */
+  #contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-left h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-left p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    max-width: 320px;
+    line-height: 1.7;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 3rem;
+  }
+
+  .contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--black);
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .contact-link:last-child { border-bottom: 1px solid var(--border); }
+
+  .contact-link:hover { color: var(--muted); }
+
+  .contact-link .link-arrow {
+    font-size: 1rem;
+    transition: transform 0.2s;
+  }
+
+  .contact-link:hover .link-arrow { transform: translate(3px,-3px); }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-field label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-field input,
+  .form-field textarea {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--black);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 0;
+    outline: none;
+    resize: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-field input:focus,
+  .form-field textarea:focus {
+    border-bottom-color: var(--black);
+  }
+
+  .form-field input::placeholder,
+  .form-field textarea::placeholder {
+    color: #ccc;
+  }
+
+  .btn-send {
+    margin-top: 0.5rem;
+    align-self: flex-start;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--white);
+    background: var(--black);
+    border: none;
+    padding: 0.9rem 2.25rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .btn-send:hover { opacity: 0.75; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  /* FADE IN ANIMATION */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section, #hero { padding: 5rem 1.5rem; }
+    #hero { padding: 7rem 1.5rem 3rem; }
+    #about .about-grid,
+    #projects .projects-grid,
+    #skills .skills-grid,
+    #contact { grid-template-columns: 1fr; gap: 2rem; }
+    #projects .project-card:first-child { grid-column: 1; }
+    .skill-group:nth-child(3n) { border-right: 1px solid var(--border); }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">Nur Darwisha</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-label">Year 3 · NP · Immersive Media</div>
+  <h1 class="hero-name fade-in">
+    Behind Every<br><em>Brand, is a</em><br>Story Worth Telling.
+  </h1>
+  <div class="hero-bottom fade-in">
+    <p class="hero-desc">
+      A student designer and creator working at the intersection of technology, storytelling, and spatial media.
+    </p>
+    <a href="#projects" class="hero-scroll">
+      View work <span class="scroll-arrow">↓</span>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 — About</div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <h2 class="section-title">A little<br>about me.</h2>
+
+    <p class="hero-desc">
+        A Year 3 Immersive Media student at NP, passionate about social media, branding, and creating content that connects.
+        </p>
+      <p>
+        My work spans from social media and digital marketing to immersive experiences. I enjoy exploring the intersection of storytelling, design, and technology to create engaging and meaningful experiences.
+      </p>
+      <p>
+        I look forward to connecting with fellow creatives, industry professionals, and anyone interested in the world of immersive media to collaborate and learn together.
+      </p>
+    </div>
+    <div class="about-meta fade-in">
+      <div class="meta-item">
+        <span class="meta-label">School</span>
+        <span class="meta-value">Ngee Ann Polytechnic</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Course</span>
+        <span class="meta-value">Immersive Media</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Year</span>
+        <span class="meta-value">Year 3</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Focus Areas</span>
+        <span class="meta-value">UI/UX Design, Branding, Marketing</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Location</span>
+        <span class="meta-value">Singapore</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">02 — Selected Work</div>
+  <div class="projects-grid">
+
+    <div class="project-card fade-in">
+    <img src="LabBreakout.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <div class="project-info">
+        <div class="project-tag">Intergated Project Y2S2</div>
+        <div class="project-name">Lab Breakout by Team RMWK - AR/VR Game Experience Specially Made for Students in Secondary Schools to Help Improve and Change Up their Learning/Teaching Methods and Style.</div>
+    </div>
+    </div>
+
+    <div class="project-card fade-in">
+    <img src="RumiKiosk.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <div class="project-info">
+        <div class="project-tag">UI/UX Assignment</div>
+        <div class="project-name">Rumi Kiosk (By Darwisha & Musfirah) - Kiosk Stand Which Improves User Experience and Accessibility. Also Implemented a Room Booking System.</div>
+    </div>
+    </div>
+
+    <div class="project-card fade-in">
+    <img src="NextUp!.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <div class="project-info">
+        <div class="project-tag">UI/UX Assignment</div>
+        <div class="project-name">NextUp! - Mobile & Smart Watch Application to Improve User Experience.</div>
+    </div>
+    </div>
+
+    <div class="project-card fade-in">
+    <img src="OddballMedia.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <div class="project-info">
+        <div class="project-tag">Social Media Branding Assignment</div>
+        <div class="project-name">Rebranding of Burnt Cones by Oddball Media. - We created a new brand identity and social media strategy to revitalize the company's online presence.</div>
+    </div>
+    </div>
+
+    <div class="project-card fade-in">
+    <img src="PetHaven.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    <div class="project-info">
+        <div class="project-tag">ITD/DDA Assignment</div>
+        <div class="project-name">Pet Haven (By Darwisha & ZhiLin)- Mobile AR Application for New Pet Owners to Experience Pet Adoption in a More Engaging Way.</div>
+    </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">03 — Skills</div>
+  <div class="skills-grid fade-in">
+
+    <div class="skill-group">
+      <div class="skill-group-name">XR & 3D</div>
+      <ul class="skill-list">
+        <li>Unity</li>
+        <li>Maya</li>
+        <li>Blender</li>
+        <li>Adobe Substance 3D Painter</li>
+      </ul>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-name">Design & Motion</div>
+      <ul class="skill-list">
+        <li>Illustrator</li>
+        <li>Premiere Pro</li>
+        <li>Figma</li>
+        <li>Photoshop</li>
+        <li>CapCut</li>
+      </ul>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-name">Development</div>
+      <ul class="skill-list">
+        <li>HTML / CSS / JS</li>
+        <li>C# (Unity)</li>
+        <li>Python</li>
+      </ul>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-name">Soft Skills</div>
+      <ul class="skill-list">
+        <li>Project Management</li>
+        <li>Team Collaboration</li>
+        <li>Customer Service</li>
+        <li>Prototyping</li>
+        <li>Wireframing</li>
+        <li>Microsoft Excel, Word,Powerpoint</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left fade-in">
+    <div class="section-label">04 — Contact</div>
+    <h2>Let's make<br>something<br><em style="font-family:'DM Serif Display',serif;font-style:italic;color:var(--muted)">together.</em></h2>
+    <p>Open to internships, collaborations, and creative projects. Don't hesitate to reach out.</p>
+    <div class="contact-links">
+      <a href="mailto:s10259040@connect.np.edu.sg" class="contact-link">
+        School Email <span class="link-arrow">↗</span>
+      </a>
+      <a href="mailto:darwishanur18@gmail.com" class="contact-link">
+        Personal Email <span class="link-arrow">↗</span>
+      </a>
+      <a href="https://www.linkedin.com/in/nur-darwisha-3206202a8" target="_blank" class="contact-link">
+        LinkedIn <span class="link-arrow">↗</span>
+      </a>
+        <a href="NUR DARWISHA.pdf" target="_blank" class="contact-link">
+        Resume <span class="link-arrow">↗</span>
+        </a>
+      <a href="https://www.instagram.com/w.ish._.aaa?utm_source=qr&igsh=MXVyZ3lrdHI3YXEwag%3D%3D" target="_blank" class="contact-link">
+        Instagram <span class="link-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="contact-form fade-in">
+    <div class="form-field">
+      <label>Your Name</label>
+      <input type="text" placeholder="Jane Doe">
+    </div>
+    <div class="form-field">
+      <label>Email</label>
+      <input type="email" placeholder="jane@example.com">
+    </div>
+    <div class="form-field">
+      <label>Message</label>
+      <textarea rows="5" placeholder="Tell me about your project..."></textarea>
+    </div>
+    <button class="btn-send">Send message →</button>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Nur Darwisha</span>
+  <span>Immersive Media · Ngee Ann Polytechnic</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
